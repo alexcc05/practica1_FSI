@@ -125,6 +125,8 @@ def depth_first_tree_search(problem):
 
 
 def graph_search(problem, fringe):
+    visitados = 0
+    expandidos = 0
     """Search through the successors of a problem to find a goal.
     The argument fringe should be an empty queue.
     If two paths reach a state, only use the best one. [Fig. 3.18]"""
@@ -132,11 +134,16 @@ def graph_search(problem, fringe):
     fringe.append(Node(problem.initial,heuristic=problem.h(Node(problem.initial))))
     while fringe:
         node = fringe.pop()
+        visitados += 1
         if problem.goal_test(node.state):
+            print "Nodos visitados %d, Nodos expandidos %d" % (visitados,expandidos)
             return node
         #if node.state not in closed:
+        longantesexp = len(fringe)
          #   closed[node.state] = True NO ES NECESARIA LA LISTA CERRADA
         fringe.extend(node.expand(problem))
+        expandidos += len(fringe) - longantesexp
+        print "Nodos visitados %d, Nodos expandidos %d" % (visitados,expandidos)
     return None
 
 
@@ -149,9 +156,13 @@ def depth_first_graph_search(problem):
     """Search the deepest nodes in the search tree first. [p 74]"""
     return graph_search(problem, Stack())
 #########################################################################
-def depth_first_graph_search_ramification(problem):
+def depth_first_graph_search_branch(problem):
 
     return graph_search(problem,BranchedandBounce())
+
+def depth_first_graph_search_branchnoninformed(problem):
+
+    return graph_search(problem,BranchedandBounceNonInformed())
 #########################################################################
 
 def depth_limited_search(problem, limit=50):

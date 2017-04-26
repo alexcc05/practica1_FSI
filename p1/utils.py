@@ -769,7 +769,7 @@ class BranchedandBounce(Queue):
 
     def append(self, item):
         self.A.append(item)
-        self.A.sort(key = lambda i : i.heuristic )
+        self.A.sort(key = lambda i : i.heuristic ) #heuristica
 
 
     def __len__(self):
@@ -786,6 +786,32 @@ class BranchedandBounce(Queue):
             self.A = self.A[self.start:]
             self.start = 0
         return e
+
+class BranchedandBounceNonInformed(Queue):
+
+    def __init__(self):
+        self.A = []
+        self.start = 0
+
+    def append(self, item):
+        self.A.append(item)
+        self.A.sort(key=lambda i: i.path_cost) #coste parcial
+
+    def __len__(self):
+        return len(self.A) - self.start
+
+    def extend(self, items):
+        self.A.extend(items)
+        self.A.sort(key=lambda i: i.path_cost)
+
+    def pop(self):
+        e = self.A[self.start]
+        self.start += 1
+        if self.start > 5 and self.start > len(self.A) / 2:
+            self.A = self.A[self.start:]
+            self.start = 0
+        return e
+
 
 ####################################################################################
 
