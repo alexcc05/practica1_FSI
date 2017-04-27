@@ -143,7 +143,7 @@ def graph_search(problem, fringe):
          #   closed[node.state] = True NO ES NECESARIA LA LISTA CERRADA
         fringe.extend(node.expand(problem))
         expandidos += len(fringe) - longantesexp
-        print "Nodos visitados %d, Nodos expandidos %d" % (visitados,expandidos)
+        #print "Nodos visitados %d, Nodos expandidos %d" % (visitados,expandidos)
     return None
 
 
