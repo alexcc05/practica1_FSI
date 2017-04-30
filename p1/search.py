@@ -130,7 +130,30 @@ def graph_search(problem, fringe):
     """Search through the successors of a problem to find a goal.
     The argument fringe should be an empty queue.
     If two paths reach a state, only use the best one. [Fig. 3.18]"""
-    #closed = {}
+    closed = {}
+    fringe.append(Node(problem.initial,heuristic=problem.h(Node(problem.initial))))
+    while fringe:
+        node = fringe.pop()
+        longantesexp=0
+        visitados += 1
+        if problem.goal_test(node.state):
+            print "Nodos visitados %d, Nodos expandidos %d" % (visitados,expandidos)
+            return node
+        if node.state not in closed:
+            longantesexp = len(fringe)
+            closed[node.state] = True
+            fringe.extend(node.expand(problem))
+            expandidos += len(fringe) - longantesexp
+        #print "Nodos visitados %d, Nodos expandidos %d" % (visitados,expandidos)
+    return None
+
+def graph_search2(problem, fringe):
+    visitados = 0
+    expandidos = 0
+    longantesexp = 0
+    """Search through the successors of a problem to find a goal.
+    The argument fringe should be an empty queue.
+    If two paths reach a state, only use the best one. [Fig. 3.18]"""
     fringe.append(Node(problem.initial,heuristic=problem.h(Node(problem.initial))))
     while fringe:
         node = fringe.pop()
@@ -138,13 +161,11 @@ def graph_search(problem, fringe):
         if problem.goal_test(node.state):
             print "Nodos visitados %d, Nodos expandidos %d" % (visitados,expandidos)
             return node
-        #if node.state not in closed:
         longantesexp = len(fringe)
-         #   closed[node.state] = True NO ES NECESARIA LA LISTA CERRADA
         fringe.extend(node.expand(problem))
         expandidos += len(fringe) - longantesexp
-        #print "Nodos visitados %d, Nodos expandidos %d" % (visitados,expandidos)
-    return None
+    return node
+
 
 
 def breadth_first_graph_search(problem):
@@ -158,11 +179,11 @@ def depth_first_graph_search(problem):
 #########################################################################
 def depth_first_graph_search_branch(problem):
 
-    return graph_search(problem,BranchedandBounce())
+    return graph_search2(problem,BranchedandBounce())
 
 def depth_first_graph_search_branchnoninformed(problem):
 
-    return graph_search(problem,BranchedandBounceNonInformed())
+    return graph_search2(problem,BranchedandBounceNonInformed())
 #########################################################################
 
 def depth_limited_search(problem, limit=50):
