@@ -140,10 +140,11 @@ def graph_search(problem, fringe):
             print "Nodos visitados %d, Nodos expandidos %d" % (visitados,expandidos)
             return node
         if node.state not in closed:
-            longantesexp = len(fringe)
+
             closed[node.state] = True
             fringe.extend(node.expand(problem))
-            expandidos += len(fringe) - longantesexp
+            expandidos += 1
+
         #print "Nodos visitados %d, Nodos expandidos %d" % (visitados,expandidos)
     return None
 
@@ -161,9 +162,9 @@ def graph_search2(problem, fringe):
         if problem.goal_test(node.state):
             print "Nodos visitados %d, Nodos expandidos %d" % (visitados,expandidos)
             return node
-        longantesexp = len(fringe)
+
         fringe.extend(node.expand(problem))
-        expandidos += len(fringe) - longantesexp
+        expandidos += 1  #
     return node
 
 

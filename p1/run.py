@@ -2,14 +2,14 @@
 
 import search
 
-ab = search.GPSProblem('A', 'B', search.romania)
+ab = search.GPSProblem('O', 'N', search.romania)
 
 
 print search.breadth_first_graph_search(ab).path()
-
 print search.depth_first_graph_search(ab).path()
+
 print search.depth_first_graph_search_branch(ab).path()
-print search.depth_first_graph_search_branchnoninformed(ab).path()
+#print search.depth_first_graph_search_branchnoninformed(ab).path()
 #print search.iterative_deepening_search(ab).path()
 #print search.depth_limited_search(ab).path()
 
